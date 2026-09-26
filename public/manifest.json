@@ -1,0 +1,20 @@
+{
+  "name": "FOCUS — Books • School Supplies • More",
+  "short_name": "FOCUS",
+  "description": "Find textbooks, stationery, school supplies and complete school packages from FOCUS.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1e3a5f",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["education", "shopping"],
+  "lang": "en"
+}

@@ -1,15 +1,28 @@
 import React, { useState, useMemo } from 'react';
-import { useSearchParams } from 'react-router-dom';
 import { Filter, X, SlidersHorizontal, Grid3X3, List } from 'lucide-react';
 import { products, categories, formatPrice, searchProducts } from '../data/store';
 import { ProductCard } from '../components/Products';
 
+function getSearchParams() {
+  const hash = window.location.hash;
+  const qIndex = hash.indexOf('?');
+  if (qIndex === -1) return new URLSearchParams();
+  return new URLSearchParams(hash.substring(qIndex));
+}
+
 export function ShopPage() {
-  const [searchParams] = useSearchParams();
+  const searchParams = getSearchParams();
   const [showFilters, setShowFilters] = useState(false);
   const [sortBy, setSortBy] = useState('newest');
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 500]);
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [selectedCategories, setSelectedCategories] = useState<string[]>(() => {
+    const catSlug = searchParams.get('cat');
+    if (catSlug) {
+      const cat = categories.find(c => c.slug === catSlug);
+      if (cat) return [cat.id];
+    }
+    return [];
+  });
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
 
   const catSlug = searchParams.get('cat');
@@ -17,16 +30,6 @@ export function ShopPage() {
   const isNew = searchParams.get('new') === 'true';
   const isBestseller = searchParams.get('bestseller') === 'true';
   const isFeatured = searchParams.get('featured') === 'true';
-
-  // Initialize selected category from URL
-  React.useEffect(() => {
-    if (catSlug) {
-      const cat = categories.find(c => c.slug === catSlug);
-      if (cat && !selectedCategories.includes(cat.id)) {
-        setSelectedCategories([cat.id]);
-      }
-    }
-  }, [catSlug]);
 
   const filteredProducts = useMemo(() => {
     let result = products.filter(p => p.status === 'active');

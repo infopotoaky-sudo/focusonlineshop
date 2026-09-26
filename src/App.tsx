@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { HashRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { AppProvider } from './context/AppContext';
 import { Layout } from './components/Layout';
 import { HomePage } from './pages/HomePage';
@@ -11,7 +11,7 @@ import { AccountPage, TrackOrderPage, WishlistPage, PackagesPage } from './pages
 import { AdminPage } from './pages/AdminPage';
 import { AboutPage, ContactPage, FAQPage, SearchPage } from './pages/StaticPages';
 
-function AppRoutes() {
+function AppContent() {
   const location = useLocation();
   const isAdmin = location.pathname === '/admin';
 
@@ -48,11 +48,9 @@ function AppRoutes() {
 function App() {
   return (
     <AppProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/*" element={<AppRoutes />} />
-        </Routes>
-      </BrowserRouter>
+      <HashRouter>
+        <AppContent />
+      </HashRouter>
     </AppProvider>
   );
 }

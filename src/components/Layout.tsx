@@ -67,7 +67,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
                   value={searchQuery}
                   onChange={(e) => handleSearch(e.target.value)}
                   onFocus={() => setSearchOpen(true)}
-                  onBlur={() => setTimeout(() => setSearchOpen(false), 200)}
+                  onBlur={() => setSearchOpen(false)}
                 />
                 {searchOpen && searchResults.length > 0 && (
                   <div className="absolute top-full mt-2 w-full bg-white rounded-xl shadow-lg border border-gray-100 py-2 z-50">

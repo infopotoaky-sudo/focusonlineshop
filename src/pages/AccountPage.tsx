@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { User, Package, Heart, MapPin, Settings, LogOut, ChevronRight, Search, Truck, CheckCircle, Clock, XCircle, ShoppingBag } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { getProductById, formatPrice, schools, schoolClasses, academicYears, schoolPackages } from '../data/store';
@@ -252,11 +252,11 @@ export function AccountPage() {
 }
 
 export function TrackOrderPage() {
-  const [searchParams] = useSearchParams();
   const { state } = useApp();
-  const [orderId, setOrderId] = useState(searchParams.get('id') || '');
+  const hashParams = new URLSearchParams(window.location.hash.split('?')[1] || '');
+  const [orderId, setOrderId] = useState(hashParams.get('id') || '');
   const [phone, setPhone] = useState('');
-  const [searched, setSearched] = useState(!!searchParams.get('id'));
+  const [searched, setSearched] = useState(!!hashParams.get('id'));
 
   const order = orderId ? state.orders.find(o => o.orderNumber === orderId) : null;
 

@@ -254,8 +254,13 @@ export function CheckoutPage() {
     }, 2000);
   };
 
+  React.useEffect(() => {
+    if (cartItems.length === 0) {
+      navigate('/cart');
+    }
+  }, []);
+
   if (cartItems.length === 0) {
-    navigate('/cart');
     return null;
   }
 

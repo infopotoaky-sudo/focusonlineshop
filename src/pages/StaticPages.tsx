@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Mail, Phone, MapPin, MessageCircle, Send, ChevronDown, ChevronUp, Search } from 'lucide-react';
 import { searchProducts, formatPrice } from '../data/store';
 import { ProductCard } from '../components/Products';
@@ -211,8 +211,8 @@ export function FAQPage() {
 }
 
 export function SearchPage() {
-  const [searchParams] = useSearchParams();
-  const query = searchParams.get('q') || '';
+  const hashParams = new URLSearchParams(window.location.hash.split('?')[1] || '');
+  const query = hashParams.get('q') || '';
   const results = searchProducts(query);
 
   return (

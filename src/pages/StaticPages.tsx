@@ -211,8 +211,9 @@ export function FAQPage() {
 }
 
 export function SearchPage() {
+  const urlParams = new URLSearchParams(window.location.search);
   const hashParams = new URLSearchParams(window.location.hash.split('?')[1] || '');
-  const query = hashParams.get('q') || '';
+  const query = urlParams.get('q') || hashParams.get('q') || '';
   const results = searchProducts(query);
 
   return (

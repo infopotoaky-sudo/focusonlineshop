@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { Search, ShoppingCart, Heart, User, Menu, X, ChevronDown, Phone, Mail, MapPin, MessageCircle } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
+import { Search, ShoppingCart, Heart, User, Menu, X, Phone, Mail, MapPin, MessageCircle } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { categories, searchProducts, formatPrice } from '../data/store';
 
@@ -9,7 +9,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<ReturnType<typeof searchProducts>>([]);
-  const navigate = useNavigate();
   const location = useLocation();
   const { cartCount, state } = useApp();
 

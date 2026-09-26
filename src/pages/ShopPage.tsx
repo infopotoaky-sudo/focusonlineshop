@@ -4,10 +4,18 @@ import { products, categories, formatPrice, searchProducts } from '../data/store
 import { ProductCard } from '../components/Products';
 
 function getSearchParams() {
+  // Support both regular query params and hash-based params
+  const urlParams = new URLSearchParams(window.location.search);
   const hash = window.location.hash;
   const qIndex = hash.indexOf('?');
-  if (qIndex === -1) return new URLSearchParams();
-  return new URLSearchParams(hash.substring(qIndex));
+  if (qIndex !== -1) {
+    const hashParams = new URLSearchParams(hash.substring(qIndex));
+    // Merge both
+    hashParams.forEach((value, key) => {
+      if (!urlParams.has(key)) urlParams.set(key, value);
+    });
+  }
+  return urlParams;
 }
 
 export function ShopPage() {

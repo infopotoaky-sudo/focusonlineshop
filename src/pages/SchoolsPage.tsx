@@ -109,20 +109,19 @@ export function SchoolDetailPage() {
   const navigate = useNavigate();
   const { addToCart } = useApp();
   
+  const urlParams = new URLSearchParams(window.location.search);
   const hashParams = new URLSearchParams(window.location.hash.split('?')[1] || '');
+  const initialClass = urlParams.get('class') || hashParams.get('class') || '';
   
   const school = getSchoolBySlug(slug || '');
   const [selectedYear, setSelectedYear] = useState(academicYears[academicYears.length - 1]?.id || '');
-  const [selectedClass, setSelectedClass] = useState(hashParams.get('class') || '');
+  const [selectedClass, setSelectedClass] = useState(initialClass);
   
   const classes = school ? schoolClasses.filter(c => c.schoolId === school.id) : [];
   const requirements = school && selectedClass ? schoolRequirements.filter(r => r.schoolId === school.id && r.classId === selectedClass && r.academicYearId === selectedYear) : [];
   const pkg = school && selectedClass ? schoolPackages.find(p => p.schoolId === school.id && p.classId === selectedClass && p.academicYearId === selectedYear) : undefined;
 
-  useEffect(() => {
-    const classParam = hashParams.get('class');
-    if (classParam) setSelectedClass(classParam);
-  }, []);
+
 
   if (!school) {
     return (

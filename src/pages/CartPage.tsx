@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Minus, Plus, Trash2, ShoppingBag, ArrowRight, Truck, Tag, ShieldCheck, MessageCircle } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { getProductById, formatPrice, deliveryZones } from '../data/store';
@@ -254,14 +254,17 @@ export function CheckoutPage() {
     }, 2000);
   };
 
-  React.useEffect(() => {
-    if (cartItems.length === 0) {
-      navigate('/cart');
-    }
-  }, []);
-
   if (cartItems.length === 0) {
-    return null;
+    return (
+      <div className="max-w-7xl mx-auto px-4 py-16 text-center">
+        <p className="text-4xl mb-4">🛒</p>
+        <h2 className="text-xl font-bold text-gray-800 mb-2">Your cart is empty</h2>
+        <p className="text-gray-500 mb-6">Add some items to your cart before checking out.</p>
+        <Link to="/shop" className="bg-[#f5a623] text-[#1e3a5f] font-bold px-6 py-3 rounded-xl inline-block">
+          Continue Shopping
+        </Link>
+      </div>
+    );
   }
 
   return (
@@ -410,7 +413,7 @@ export function CheckoutPage() {
 
 export function OrderConfirmationPage() {
   const { state } = useApp();
-  const orderNumber = window.location.pathname.split('/').pop() || '';
+  const { orderNumber } = useParams<{ orderNumber: string }>();
   const order = state.orders.find(o => o.orderNumber === orderNumber);
 
   if (!order) {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { HashRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import { AppProvider } from './context/AppContext';
 import { Layout } from './components/Layout';
 import { HomePage } from './pages/HomePage';
@@ -11,45 +11,31 @@ import { AccountPage, TrackOrderPage, WishlistPage, PackagesPage } from './pages
 import { AdminPage } from './pages/AdminPage';
 import { AboutPage, ContactPage, FAQPage, SearchPage } from './pages/StaticPages';
 
-function AppContent() {
-  const location = useLocation();
-  const isAdmin = location.pathname === '/admin';
-
-  if (isAdmin) {
-    return <AdminPage />;
-  }
-
-  return (
-    <Layout>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/shop" element={<ShopPage />} />
-        <Route path="/schools" element={<SchoolsPage />} />
-        <Route path="/schools/:slug" element={<SchoolDetailPage />} />
-        <Route path="/packages" element={<PackagesPage />} />
-        <Route path="/product/:slug" element={<ProductPage />} />
-        <Route path="/cart" element={<CartPage />} />
-        <Route path="/checkout" element={<CheckoutPage />} />
-        <Route path="/order-confirmation/:orderNumber" element={<OrderConfirmationPage />} />
-        <Route path="/track-order" element={<TrackOrderPage />} />
-        <Route path="/account" element={<AccountPage />} />
-        <Route path="/wishlist" element={<WishlistPage />} />
-        <Route path="/search" element={<SearchPage />} />
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/contact" element={<ContactPage />} />
-        <Route path="/faq" element={<FAQPage />} />
-        <Route path="/privacy" element={<AboutPage />} />
-        <Route path="/terms" element={<AboutPage />} />
-      </Routes>
-    </Layout>
-  );
-}
-
 function App() {
   return (
     <AppProvider>
       <HashRouter>
-        <AppContent />
+        <Routes>
+          <Route path="/admin" element={<AdminPage />} />
+          <Route path="/" element={<Layout><HomePage /></Layout>} />
+          <Route path="/shop" element={<Layout><ShopPage /></Layout>} />
+          <Route path="/schools" element={<Layout><SchoolsPage /></Layout>} />
+          <Route path="/schools/:slug" element={<Layout><SchoolDetailPage /></Layout>} />
+          <Route path="/packages" element={<Layout><PackagesPage /></Layout>} />
+          <Route path="/product/:slug" element={<Layout><ProductPage /></Layout>} />
+          <Route path="/cart" element={<Layout><CartPage /></Layout>} />
+          <Route path="/checkout" element={<Layout><CheckoutPage /></Layout>} />
+          <Route path="/order-confirmation/:orderNumber" element={<Layout><OrderConfirmationPage /></Layout>} />
+          <Route path="/track-order" element={<Layout><TrackOrderPage /></Layout>} />
+          <Route path="/account" element={<Layout><AccountPage /></Layout>} />
+          <Route path="/wishlist" element={<Layout><WishlistPage /></Layout>} />
+          <Route path="/search" element={<Layout><SearchPage /></Layout>} />
+          <Route path="/about" element={<Layout><AboutPage /></Layout>} />
+          <Route path="/contact" element={<Layout><ContactPage /></Layout>} />
+          <Route path="/faq" element={<Layout><FAQPage /></Layout>} />
+          <Route path="/privacy" element={<Layout><AboutPage /></Layout>} />
+          <Route path="/terms" element={<Layout><AboutPage /></Layout>} />
+        </Routes>
       </HashRouter>
     </AppProvider>
   );

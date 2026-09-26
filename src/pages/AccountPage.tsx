@@ -253,10 +253,12 @@ export function AccountPage() {
 
 export function TrackOrderPage() {
   const { state } = useApp();
+  const urlParams = new URLSearchParams(window.location.search);
   const hashParams = new URLSearchParams(window.location.hash.split('?')[1] || '');
-  const [orderId, setOrderId] = useState(hashParams.get('id') || '');
+  const initialId = urlParams.get('id') || hashParams.get('id') || '';
+  const [orderId, setOrderId] = useState(initialId);
   const [phone, setPhone] = useState('');
-  const [searched, setSearched] = useState(!!hashParams.get('id'));
+  const [searched, setSearched] = useState(!!initialId);
 
   const order = orderId ? state.orders.find(o => o.orderNumber === orderId) : null;
 
